@@ -1,0 +1,32 @@
+game class // handles brunt of logic, how it operates. Main container for everything
+    two player objects that could become human or computer
+        Use inheritence for human vs ai or human vs computer
+            what does the player beocme, huamn or computer?
+
+4 classes for sure
+    game
+    player
+    human
+    computer
+Optional
+    Gesture classes
+
+
+Keep in mind steps of game:
+
+- Welcome
+- Human vs Computer || Human vs Human 
+    - Assign player 1 to human always
+    - assign player 2 to computer or human vs input
+        1 player or two player?
+- Rock, paper, scissors, lizard, Spock, shoot
+- Take input(s)
+    - if 1 player ask input for P1 generate random for P2
+    - if 2 player ask for both inputs
+- Process inputs
+    - if P1 wins ++P1 playerOneWinCount, if P2 wins ++playerTwoWinCount, if players draw ++playerDrawCount
+- Show results 
+    - who won round
+    - if round2 then standing
+    - winner
+- if no winner rerun program, if winner, show and ask if they want to start new game.
