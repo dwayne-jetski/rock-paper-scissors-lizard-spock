@@ -7,7 +7,36 @@ class Game {
         this.gestureArray = ['rock', 'paper', 'scissors', 'lizard', 'spock'];
         this.gestureArray = [];
     }
+RunGame(){
+
+    //playerNumbers();
+    this.createPlayers(1);
+    console.log(player1);
+    console.log(player2);
+
+    do{
+    player1.gesture = this.promptPlayerGestures(this.player1);
+    if (player2.name != "Hal 3000"){
+        player2.gesture = this.promptPlayerGestures(this.player2);
+    }
+    else{
+        player2.gesture = this.generateComputerGesture();
+    }
+
+    this.compareGestures(player1.gesture, player2.gesture)
+
+    this.showResults();
+    if(this.player1.wins === 2 ){
+        break
+    }
+    else if(this.player2.wins === 2){
+        break
+    }
+
+    }while(true)
+
     
+}
 
 
 playerNumbers (){
@@ -22,7 +51,7 @@ generateComputerGesture(computerGesture = "", gestureArray){
     //randomly generate a number 1-5 and use same logic as promptPlayerGestures to assign gesture based on numerical value
 }
 
-compareGestures(){
+compareGestures(player1, player2){
     //compare the two gestures to see who wins
 }
 
