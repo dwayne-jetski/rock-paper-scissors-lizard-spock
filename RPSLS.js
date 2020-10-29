@@ -42,9 +42,11 @@ class Game {
             continueOrStop = prompt("Would you like to continue? [y/n]:" )
             continueOrStop = continueOrStop.toLowerCase();
             if (continueOrStop.charAt(0) === 'y'){
+                alert("We'll start a new game for you!")
                 this.RunGame
             }
             else{
+                alert("Thanks for playing!")
                 break
             }
         }while(true)
