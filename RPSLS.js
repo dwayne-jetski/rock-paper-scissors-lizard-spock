@@ -37,7 +37,18 @@ class Game {
 
         }while(true)
 
-
+        let continueOrStop = "";
+        do{
+            continueOrStop = prompt("Would you like to continue? [y/n]:" )
+            continueOrStop = continueOrStop.toLowerCase();
+            if (continueOrStop.charAt(0) === 'y'){
+                this.RunGame
+            }
+            else{
+                break
+            }
+        }while(true)
+        
     }
 
     playerNumbers (){
