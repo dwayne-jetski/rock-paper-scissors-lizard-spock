@@ -21,12 +21,13 @@ RunGame(){
             this.player2.gesture = this.promptPlayerGestures(this.player2, this.gestureArray);
         }
         else{
-            this.player2.gesture = this.generateComputerGesture();
+            this.player2.gesture = this.generateComputerGesture(this.gestureArray);
         }
 
-        this.compareGestures(player1.gesture, player2.gesture)
+        playerArray = this.getResults(this.player1, this.player2)
+        this.player1 = playerArray[0];
+        this.player2 = playerArray[1]
 
-        this.showResults();
         if(this.player1.wins === 2 ){
             break
         }
@@ -89,18 +90,78 @@ promptPlayerGestures(player, gestureArray){
 
  return userInput;
 }
-generateComputerGesture(computerGesture = "", gestureArray){
+generateComputerGesture(gestureArray){
     //randomly generate a number 1-5 and use same logic as promptPlayerGestures to assign gesture based on numerical value
+    let randomNumber = Math.floor(Math.random() * 5);
+    let computerGesture = gestureArray[randomNumber];
+
+    return computerGesture;
 }
 
-compareGestures(player1, player2){
+getResults(player1, player2){
     //compare the two gestures to see who wins
+    let resultsArray = ["", ""];
+    let winningPlayer;
+    resultsArray[0] = this.numberOf(player1.gesture);
+    resultsArray[1] = this.numberOf(player2.gesture);
+
+    console.log(resultsArray[0]);
+    console.log(resultsArray[1]);
+    let resultsTable = []; 
+    resultsTable = 
+    //   R    P  SCIS   L   SP
+    [ [ 't', 'w', 'l', 'l', 'w'], //rock
+      [ 'l', 'd', 'w', 'w', 'l'], //paper
+      [ 'w', 'l', 'd', 'l', 'w'], //scissors
+      [ 'w', 'l', 'w', 'd', 'l'], //lizard
+      [ 'l', 'w', 'l', 'w', 'd'], //draw
+    ];  //win or lose is based on horizontal person's perspective
+
+    let winningResult = resultsTable[resultsArray[1]] [resultsArray[0]];
+
+    
+
+    
+     if (winningResult = 'w'){
+            player1.wins++
+            winningPlayer = player1;
+        }
+    else if (winningResult = 'l'){
+            player2.wins++
+            winningPlayer = player2;
+        } 
+
+    resultsArray[0] = player1;
+    resultsArray[1] = player2;
+
+    if(winningPlayer === null || winningPlayer === []){
+        alert(player1.name + " threw: " + player1.gesture + "\n" + player2.name + " threw: " + player2.gesture + "\n Nobody wins... :(");
+    }
+    else{
+        alert(player1.name + " threw: " + player1.gesture + "\n" + player2.name + " threw: " + player2.gesture + "\n" + winningPlayer.name + "IS THE WINNER!");
+    }
+    return resultsArray; 
 }
 
-showResults(){
-    //show results of the round
+numberOf(playerGesture){
+    let result;
+    if (playerGesture === "rock"){
+        result = 0;
+    }
+    else if (playerGesture === "paper"){
+        result = 1;
+    }
+    else if (playerGesture === "scissors"){
+        result = 2;
+    }
+    else if (playerGesture === "lizard"){
+        result = 3;
+    }
+    else if (playerGesture === "spock"){
+        result = 4;
+    }
+    return result;
 }
-
 
 }
 
