@@ -8,8 +8,30 @@ class Game {
         this.gestureArray = [];
     }
     
+
+
+playerNumbers (){
+
+    //ask if 1 or 2 player return 1 or 2
 }
 
+promptPlayerGestures(player, gestureArray){
+ //take in a number value, make return value = gestureArray[return value]
+}
+generateComputerGesture(computerGesture = "", gestureArray){
+    //randomly generate a number 1-5 and use same logic as promptPlayerGestures to assign gesture based on numerical value
+}
+
+compareGestures(){
+    //compare the two gestures to see who wins
+}
+
+showResults(){
+    //show results of the round
+}
+
+
+}
 
 
 class Player {
