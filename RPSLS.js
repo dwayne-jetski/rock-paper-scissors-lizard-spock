@@ -35,13 +35,27 @@ RunGame(){
 
     }while(true)
 
-    
+
 }
 
 
 playerNumbers (){
 
     //ask if 1 or 2 player return 1 or 2
+}
+
+createPlayers(number){
+    if (number === 1){
+        let name = prompt("What is your name?")
+        this.player1 = new Human(name);
+        this.player2 = new Computer();
+    }
+    else{
+        let nameOne = prompt("Player One, what is your name?");
+        let nameTwo = prompt("Player Two, what is your name?");
+        this.player1 = new Human(nameOne);
+        this.player2 = new Human(nameTwo);
+    }
 }
 
 promptPlayerGestures(player, gestureArray){
