@@ -11,8 +11,7 @@ class Game {
         let playerArray = this.createPlayers(this.playerNumbers())
         this.player1 = playerArray[0];
         this.player2 = playerArray[1]
-        console.log(this.player1);
-        console.log(this.player2);
+        
 
         do{
 
@@ -29,9 +28,11 @@ class Game {
             this.player2 = playerArray[1]
 
             if(this.player1.wins === 2 ){
+                this.displayWinner(this.player1);
                 break
             }
             else if(this.player2.wins === 2){
+                this.displayWinner(this.player2);
                 break
             }
 
@@ -43,12 +44,13 @@ class Game {
             continueOrStop = continueOrStop.toLowerCase();
             if (continueOrStop.charAt(0) === 'y'){
                 alert("We'll start a new game for you!")
-                this.RunGame
+                this.RunGame();
             }
-            else{
+            else if (continueOrStop.charAt(0) === 'n'){
                 alert("Thanks for playing!")
                 break
             }
+            alert("Not a valid input...")
         }while(true)
         
     }
@@ -92,13 +94,13 @@ class Game {
     do{
         userInput = prompt(player.name + " What do you choose [enter approipriate number]: \n1) Rock \n2) Paper \n3) Scissors \n4) Lizard \n5) Spock");
         userInput = parseInt(userInput);
-        if (userInput > 0 && userInput < 6){
+        if (userInput > 0 && userInput <= gestureArray.length){
             break
         }
+        alert("Not a valid input...")
     }while(true)
         
     userInput = gestureArray[userInput-1];
-    console.log(userInput);
 
     return userInput;
     }
@@ -121,9 +123,9 @@ class Game {
         console.log(resultsArray[0]);
         console.log(resultsArray[1]);
         let resultsTable = []; 
-        resultsTable = 
+        resultsTable = [
         //   R    P  SCIS   L   SP
-        [ [ 'd', 'w', 'l', 'l', 'w'], //rock
+        [ 'd', 'w', 'l', 'l', 'w'], //rock
         [ 'l', 'd', 'w', 'w', 'l'], //paper
         [ 'w', 'l', 'd', 'l', 'w'], //scissors
         [ 'w', 'l', 'w', 'd', 'l'], //lizard
@@ -132,9 +134,6 @@ class Game {
 
         let winningResult = resultsTable[resultsArray[1]] [resultsArray[0]];
 
-        
-
-        
         if (winningResult === 'w'){
                 player1.wins++
                 winningPlayer = player1;
@@ -151,7 +150,7 @@ class Game {
             alert(player1.name + " threw: " + player1.gesture + "\n" + player2.name + " threw: " + player2.gesture + "\nNobody wins... :(");
         }
         else{
-            alert(player1.name + " threw: " + player1.gesture + "\n" + player2.name + " threw: " + player2.gesture + "\n" + winningPlayer.name + " IS THE WINNER!");
+            alert(player1.name + " threw: " + player1.gesture + "\n" + player2.name + " threw: " + player2.gesture + "\n" + winningPlayer.name + " IS THE WINNER OF THE ROUND!");
         }
         return resultsArray; 
     }
@@ -176,6 +175,10 @@ class Game {
         return result;
     }
 
+    displayWinner(winner){
+        alert(winner.name + " IS THE WINNER OF THE GAME!")
+    }
+
 }
 
 
@@ -184,7 +187,7 @@ class Player {
     constructor(){
         this.name = "";
         this.wins = 0;
-        this.gesture = null;
+        
     }
 }
 
@@ -193,7 +196,9 @@ class Human extends Player{
     constructor(name){
         super();
         this.name = name
+        this.gesture = null;
     }
+    
 }
 
 class Computer extends Player{
@@ -206,4 +211,4 @@ class Computer extends Player{
 }
 
 let game = new Game();
-game.RunGame();
+//game.RunGame();
