@@ -10,7 +10,7 @@ class Game {
 RunGame(){
 
     //playerNumbers();
-    this.createPlayers(1);
+    this.createPlayers(this.playerNumbers());
     console.log(player1);
     console.log(player2);
 
@@ -40,8 +40,20 @@ RunGame(){
 
 
 playerNumbers (){
+    let userInput;
+    do{
+        userInput = prompt("How many player would you like, 1 or 2? [enter a number]: ")
+        parseInt(userInput);
+        if (userInput === 1){
+            break
+        }
+        else if (userInput === 2){
+            break
+        }
+        alert("Not a valid input");
+    }while(ture)
 
-    //ask if 1 or 2 player return 1 or 2
+    return userInput;
 }
 
 createPlayers(number){
