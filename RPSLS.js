@@ -5,33 +5,34 @@ class Game {
         this.player1 = null;
         this.player2 = null;
         this.gestureArray = ['rock', 'paper', 'scissors', 'lizard', 'spock'];
-        this.gestureArray = [];
     }
 RunGame(){
 
-    //playerNumbers();
-    this.createPlayers(this.playerNumbers());
-    console.log(player1);
-    console.log(player2);
+    let playerArray = this.createPlayers(this.playerNumbers())
+    this.player1 = playerArray[0];
+    this.player2 = playerArray[1]
+    console.log(this.player1);
+    console.log(this.player2);
 
     do{
-    player1.gesture = this.promptPlayerGestures(this.player1);
-    if (player2.name != "Hal 3000"){
-        player2.gesture = this.promptPlayerGestures(this.player2);
-    }
-    else{
-        player2.gesture = this.generateComputerGesture();
-    }
 
-    this.compareGestures(player1.gesture, player2.gesture)
+        this.player1.gesture = this.promptPlayerGestures(this.player1, this.gestureArray);
+        if (this.player2.name != "HAL 3000"){
+            this.player2.gesture = this.promptPlayerGestures(this.player2, this.gestureArray);
+        }
+        else{
+            this.player2.gesture = this.generateComputerGesture();
+        }
 
-    this.showResults();
-    if(this.player1.wins === 2 ){
-        break
-    }
-    else if(this.player2.wins === 2){
-        break
-    }
+        this.compareGestures(player1.gesture, player2.gesture)
+
+        this.showResults();
+        if(this.player1.wins === 2 ){
+            break
+        }
+        else if(this.player2.wins === 2){
+            break
+        }
 
     }while(true)
 
@@ -43,7 +44,7 @@ playerNumbers (){
     let userInput;
     do{
         userInput = prompt("How many player would you like, 1 or 2? [enter a number]: ")
-        parseInt(userInput);
+        userInput = parseInt(userInput);
         if (userInput === 1){
             break
         }
@@ -51,37 +52,42 @@ playerNumbers (){
             break
         }
         alert("Not a valid input");
-    }while(ture)
+    }while(true)
 
     return userInput;
-}
+} 
 
-createPlayers(number){
+createPlayers(number, playersArray = []){
     if (number === 1){
         let name = prompt("What is your name?")
-        this.player1 = new Human(name);
-        this.player2 = new Computer();
+        playersArray[0] = new Human(name);
+        playersArray[1] = new Computer();
     }
     else{
         let nameOne = prompt("Player One, what is your name?");
         let nameTwo = prompt("Player Two, what is your name?");
-        this.player1 = new Human(nameOne);
-        this.player2 = new Human(nameTwo);
+        playersArray[0] = new Human(nameOne);
+        playersArray[1] = new Human(nameTwo);
     }
+
+    return playersArray;
 }
 
 promptPlayerGestures(player, gestureArray){
  //take in a number value, make return value = gestureArray[return value]
  let userInput; 
  do{
-     userInput = prompt(player.name + " hat do you choose [enter approipriate number]: \n1) Rock \n2) Paper \n3) Scissors \n4) Lizard \n5) Spock");
+     userInput = prompt(player.name + " What do you choose [enter approipriate number]: \n1) Rock \n2) Paper \n3) Scissors \n4) Lizard \n5) Spock");
      userInput = parseInt(userInput);
- }while(typeof userOneInput != 'number' || (userOneInput > 5 || userOneInput < 1))
+     if (userInput > 0 && userInput < 6){
+         break
+     }
+ }while(true)
      
- playerChoice = gestureArray[playerChoice];
- console.log(playerChoice);
+ userInput = gestureArray[userInput-1];
+ console.log(userInput);
 
- return playerChoice;
+ return userInput;
 }
 generateComputerGesture(computerGesture = "", gestureArray){
     //randomly generate a number 1-5 and use same logic as promptPlayerGestures to assign gesture based on numerical value
