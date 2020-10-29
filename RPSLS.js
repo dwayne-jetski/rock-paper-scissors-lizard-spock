@@ -60,6 +60,16 @@ createPlayers(number){
 
 promptPlayerGestures(player, gestureArray){
  //take in a number value, make return value = gestureArray[return value]
+ let userInput; 
+ do{
+     userInput = prompt(player.name + " hat do you choose [enter approipriate number]: \n1) Rock \n2) Paper \n3) Scissors \n4) Lizard \n5) Spock");
+     userInput = parseInt(userInput);
+ }while(typeof userOneInput != 'number' || (userOneInput > 5 || userOneInput < 1))
+     
+ playerChoice = gestureArray[playerChoice];
+ console.log(playerChoice);
+
+ return playerChoice;
 }
 generateComputerGesture(computerGesture = "", gestureArray){
     //randomly generate a number 1-5 and use same logic as promptPlayerGestures to assign gesture based on numerical value
@@ -102,3 +112,6 @@ class Computer extends Player{
     }
 
 }
+
+let game = new Game();
+game.RunGame();
