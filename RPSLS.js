@@ -40,7 +40,6 @@ RunGame(){
 
 }
 
-
 playerNumbers (){
     let userInput;
     do{
@@ -110,7 +109,7 @@ getResults(player1, player2){
     let resultsTable = []; 
     resultsTable = 
     //   R    P  SCIS   L   SP
-    [ [ 't', 'w', 'l', 'l', 'w'], //rock
+    [ [ 'd', 'w', 'l', 'l', 'w'], //rock
       [ 'l', 'd', 'w', 'w', 'l'], //paper
       [ 'w', 'l', 'd', 'l', 'w'], //scissors
       [ 'w', 'l', 'w', 'd', 'l'], //lizard
@@ -122,11 +121,11 @@ getResults(player1, player2){
     
 
     
-     if (winningResult = 'w'){
+     if (winningResult === 'w'){
             player1.wins++
             winningPlayer = player1;
         }
-    else if (winningResult = 'l'){
+    else if (winningResult === 'l'){
             player2.wins++
             winningPlayer = player2;
         } 
@@ -134,11 +133,11 @@ getResults(player1, player2){
     resultsArray[0] = player1;
     resultsArray[1] = player2;
 
-    if(winningPlayer === null || winningPlayer === []){
-        alert(player1.name + " threw: " + player1.gesture + "\n" + player2.name + " threw: " + player2.gesture + "\n Nobody wins... :(");
+    if(winningPlayer === null || winningPlayer === undefined){
+        alert(player1.name + " threw: " + player1.gesture + "\n" + player2.name + " threw: " + player2.gesture + "\nNobody wins... :(");
     }
     else{
-        alert(player1.name + " threw: " + player1.gesture + "\n" + player2.name + " threw: " + player2.gesture + "\n" + winningPlayer.name + "IS THE WINNER!");
+        alert(player1.name + " threw: " + player1.gesture + "\n" + player2.name + " threw: " + player2.gesture + "\n" + winningPlayer.name + " IS THE WINNER!");
     }
     return resultsArray; 
 }
