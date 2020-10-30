@@ -6,6 +6,8 @@ class Game {
         this.player2 = null;
         this.gestureArray = ['rock', 'paper', 'scissors', 'lizard', 'spock'];
     }
+
+
     RunGame(){
 
         let playerArray = this.createPlayers(this.playerNumbers())
@@ -39,21 +41,7 @@ class Game {
 
         }while(true)
 
-        let continueOrStop = "";
-        do{
-            continueOrStop = prompt("Would you like to continue? [y/n]:" )
-            continueOrStop = continueOrStop.toLowerCase();
-            if (continueOrStop.charAt(0) === 'y'){
-                alert("We'll start a new game for you!")
-                this.RunGame();
-            }
-            else if (continueOrStop.charAt(0) === 'n'){
-                alert("Thanks for playing!")
-                break
-            }
-            alert("Not a valid input...")
-        }while(true)
-        
+        this.continueOrStop()
     }
 
     playerNumbers (){
@@ -108,7 +96,7 @@ class Game {
 
     generateComputerGesture(gestureArray){
         //randomly generate a number 1-5 and use same logic as promptPlayerGestures to assign gesture based on numerical value
-        let randomNumber = Math.floor(Math.random() * 5);
+        let randomNumber = Math.floor(Math.random() * gestureArray.length);
         let computerGesture = gestureArray[randomNumber];
 
         return computerGesture;
@@ -180,6 +168,23 @@ class Game {
         alert(winner.name + " IS THE WINNER OF THE GAME!")
     }
 
+    continueOrStop(){
+        let continueOrStop = "";
+        do{
+            continueOrStop = prompt("Would you like to continue? [y/n]:" )
+            continueOrStop = continueOrStop.toLowerCase();
+            if (continueOrStop.charAt(0) === 'y'){
+                alert("We'll start a new game for you!")
+                this.RunGame();
+            }
+            else if (continueOrStop.charAt(0) === 'n'){
+                alert("Thanks for playing!")
+                break
+            }
+            alert("Not a valid input...")
+        }while(true)
+        
+    }
 }
 
 
@@ -206,7 +211,13 @@ class Computer extends Player{
 
     constructor(){
         super();
-        this.name = "HAL 3000";
+        this.name = this.randomNameGenerator();
+    }
+
+    randomNameGenerator(){
+        let nameArray = ['Tony', 'Ralph', 'HAL 3000', 'Pikachu', 'Luffy', 'Wee Hughie', 'Osmosis Jones', 'Deep Thought']
+
+        return nameArray[Math.floor(Math.random() * nameArray.length)]
     }
 
 }
