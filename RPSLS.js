@@ -16,11 +16,12 @@ class Game {
         do{
 
             this.player1.gesture = this.promptPlayerGestures(this.player1, this.gestureArray);
-            if (this.player2.name != "HAL 3000"){
-                this.player2.gesture = this.promptPlayerGestures(this.player2, this.gestureArray);
+
+            if (this.player2 instanceof Computer === true){
+                this.player2.gesture = this.generateComputerGesture(this.gestureArray);
             }
             else{
-                this.player2.gesture = this.generateComputerGesture(this.gestureArray);
+                this.player2.gesture = this.promptPlayerGestures(this.player2, this.gestureArray);
             }
 
             playerArray = this.getResults(this.player1, this.player2)
@@ -198,7 +199,7 @@ class Human extends Player{
         this.name = name
         this.gesture = null;
     }
-    
+
 }
 
 class Computer extends Player{
@@ -211,4 +212,3 @@ class Computer extends Player{
 }
 
 let game = new Game();
-//game.RunGame();
