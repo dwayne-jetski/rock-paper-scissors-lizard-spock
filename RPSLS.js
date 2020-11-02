@@ -220,5 +220,60 @@ class Computer extends Player{
 
 }
 
+class Gesture{
+
+    constructor(){
+        this.name = "";
+        this.id;
+    }
+}
+
+class Rock extends Gesture{
+    
+    constructor(){
+        super();
+        this.name = "rock";
+        this.id = 0;
+    }
+}
+
+class Paper extends Gesture{
+    
+    constructor(){
+        super();
+        this.name = "paper";
+        this.id = 1;
+    }
+}
+
+class Scissors extends Gesture{
+    
+    constructor(){
+        super();
+        this.name = "scissors";
+        this.id = 2;
+    }
+}
+
+class Lizzard extends Gesture{
+    
+    constructor(){
+        super();
+        this.name = "lizzard";
+        this.id = 3;
+    }
+}
+
+class Spock extends Gesture{
+    
+    constructor(){
+        super();
+        this.name = "spock";
+        this.id = 4;
+    }
+}
+
+
+
 
 let game = new Game();
