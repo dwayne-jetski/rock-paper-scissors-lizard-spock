@@ -109,8 +109,6 @@ class Game {
         resultsArray[0] = this.numberOf(player1.gesture);
         resultsArray[1] = this.numberOf(player2.gesture);
 
-        console.log(resultsArray[0]);
-        console.log(resultsArray[1]);
         let resultsTable = []; 
         resultsTable = [
         //   R    P  SCIS   L   SP
@@ -221,5 +219,6 @@ class Computer extends Player{
     }
 
 }
+
 
 let game = new Game();
