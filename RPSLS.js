@@ -81,35 +81,40 @@ class Game {
         [ 'l', 'd', 'w', 'w', 'l'], //paper
         [ 'w', 'l', 'd', 'l', 'w'], //scissors
         [ 'w', 'l', 'w', 'd', 'l'], //lizard
-        [ 'l', 'w', 'l', 'w', 'd'], //draw
+        [ 'l', 'w', 'l', 'w', 'd'], //spock
         ];  //win or lose is based on horizontal person's perspective
         ; 
         let winningAdjectiveTable = [
         // R    P  SCIS   L   SP
-        [ 'd', 'w', 'l', 'l', 'w'], //rock
-        [ 'l', 'd', 'w', 'w', 'l'], //paper
-        [ 'w', 'l', 'd', 'l', 'w'], //scissors
-        [ 'w', 'l', 'w', 'd', 'l'], //lizard
-        [ 'l', 'w', 'l', 'w', 'd'], //draw
+        [ null, 'covers', 'crushes', 'crushes', 'vaporizes'], //rock
+        [ 'covers', null, 'cuts', 'eats', 'disproves'], //paper
+        [ 'crushes', 'cuts', null, 'decapitates', 'smashes'], //scissors
+        [ 'crushes', 'eats', 'decapitates', null, 'poisons'], //lizard
+        [ 'vaporizes', 'disproves', 'smashes', 'poisons', null], //spock
         ];  //win or lose is based on horizontal person's perspective
 
-        let winningResult = resultsTable[this.player2.gesture.id] [this.player2.gesture.id];
-
+        let winningResult = resultsTable[this.player2.gesture.id] [this.player1.gesture.id];
+        let winningAdjective = winningAdjectiveTable[this.player2.gesture.id] [this.player1.gesture.id];
+        let losingPlayer;
         if (winningResult === 'w'){
                 this.player1.wins++
                 winningPlayer = this.player1;
+                losingPlayer = this.player2;
             }
         else if (winningResult === 'l'){
                 this.player2.wins++
                 winningPlayer = this.player2;
+                losingPlayer = this.player1
             } 
 
         
         if(winningPlayer === null || winningPlayer === undefined){
-            alert(this.player1.name + " threw: " + this.player1.gesture.name+ "\n" + this.player2.name + " threw: " + this.player2.gesture + "\nNobody wins... :(");
+            alert(this.player1.name + " threw: " + this.player1.gesture.name+ "\n" + this.player2.name + " threw: " + this.player2.gesture.name + "\nNobody wins... :(");
         }
         else{
-            alert(this.player1.name + " threw: " + this.player1.gesture.name + "\n" + this.player2.name + " threw: " + this.player2.gesture + "\n" + winningPlayer.name + " IS THE WINNER OF THE ROUND!");
+            alert(this.player1.name + " threw: " + this.player1.gesture.name + "\n" + this.player2.name + " threw: " + this.player2.gesture.name 
+            + "\n" + winningPlayer.gesture.name + " " +  winningAdjective + " " + losingPlayer.gesture.name
+            + "\n\n" + winningPlayer.name + " IS THE WINNER OF THE ROUND!");
         }
         
     }
