@@ -4,7 +4,7 @@ class Game {
     constructor(){
         this.player1 = null;
         this.player2 = null;
-        this.gestureArray = ['rock', 'paper', 'scissors', 'lizard', 'spock'];
+        this.gestureArray = [new Rock(), new Paper(), new Scissors() , new Lizard(), new Spock()];
     }
 
 
@@ -13,17 +13,14 @@ class Game {
         let playerArray = this.createPlayers(this.playerNumbers())
         this.player1 = playerArray[0];
         this.player2 = playerArray[1]
-        
 
         do{
 
-            this.player1 = this.promptPlayerGestures(this.player1, this.gestureArray);
+            this.player1.promptPlayerGestures();
 
-            this.player2 = this.promptPlayerGestures(this.player2, this.gestureArray);
+            this.player2.promptPlayerGestures();
 
-            playerArray = this.getResults(this.player1, this.player2)
-            this.player1 = playerArray[0];
-            this.player2 = playerArray[1]
+            this.getResults()
 
             if(this.player1.wins === 2 ){
                 this.displayWinner(this.player1);
@@ -59,74 +56,36 @@ class Game {
     createPlayers(number, playersArray = []){
         if (number === 1){
             let name = prompt("What is your name?")
-            playersArray[0] = new Human(name);
-            playersArray[1] = new Computer();
+            playersArray[0] = new Human(name, this.gestureArray);
+            playersArray[1] = new Computer(this.gestureArray);
         }
         else{
             let nameOne = prompt("Player One, what is your name?");
             let nameTwo = prompt("Player Two, what is your name?");
-            playersArray[0] = new Human(nameOne);
-            playersArray[1] = new Human(nameTwo);
+            playersArray[0] = new Human(nameOne, this.gestureArray);
+            playersArray[1] = new Human(nameTwo, this.gestureArray);
         }
 
         return playersArray;
     }
 
-    promptPlayerGestures(player, gestureArray){
-        let userInput;
-      
-        if (player instanceof Computer === true){
-            userInput = Math.floor(Math.random() * gestureArray.length) +1;
-        }
-        else{
-            do{
-                userInput = prompt(player.name + " What do you choose [enter approipriate number]: \n1) Rock \n2) Paper \n3) Scissors \n4) Lizard \n5) Spock");
-                userInput = parseInt(userInput);
-                if (userInput > 0 && userInput <= gestureArray.length){
-                    break
-                }
-                alert("Not a valid input...")
-            }while(true)
-        }
-        let gesture;
-        if (userInput === 1){
-            gesture = new Rock
-            player.gesture = gesture.name;
-            player.gestureId = gesture.id;
-        }
-        else if (userInput === 2){
-            gesture = new Paper
-            player.gesture = gesture.name;
-            player.gestureId = gesture.id;
-        }
-        else if (userInput === 3){
-            gesture = new Scissors
-            player.gesture = gesture.name;
-            player.gestureId = gesture.id;
-        }
-        else if (userInput === 4){
-            gesture = new Lizzard
-            player.gesture = gesture.name;
-            player.gestureId = gesture.id;
-        }
-        else if (userInput === 5){
-            gesture = new Spock
-            player.gesture = gesture.name;
-            player.gestureId = gesture.id;
-        }
-        return player;
-    }
-
-    getResults(player1, player2){
+    getResults(){
         //compare the two gestures to see who wins
         let resultsArray = ["", ""];
         let winningPlayer;
-       /*  resultsArray[0] = this.numberOf(player1.gesture);
-        resultsArray[1] = this.numberOf(player2.gesture); */
 
         let resultsTable = []; 
         resultsTable = [
-        //   R    P  SCIS   L   SP
+        // R    P  SCIS   L   SP
+        [ 'd', 'w', 'l', 'l', 'w'], //rock
+        [ 'l', 'd', 'w', 'w', 'l'], //paper
+        [ 'w', 'l', 'd', 'l', 'w'], //scissors
+        [ 'w', 'l', 'w', 'd', 'l'], //lizard
+        [ 'l', 'w', 'l', 'w', 'd'], //draw
+        ];  //win or lose is based on horizontal person's perspective
+        ; 
+        let winningAdjectiveTable = [
+        // R    P  SCIS   L   SP
         [ 'd', 'w', 'l', 'l', 'w'], //rock
         [ 'l', 'd', 'w', 'w', 'l'], //paper
         [ 'w', 'l', 'd', 'l', 'w'], //scissors
@@ -134,29 +93,25 @@ class Game {
         [ 'l', 'w', 'l', 'w', 'd'], //draw
         ];  //win or lose is based on horizontal person's perspective
 
-        //let winningResult = resultsTable[resultsArray[1]] [resultsArray[0]];//resultsArray[1] is player2, resultsArray[0] is player1
-
-        let winningResult = resultsTable[player2.gestureId] [player1.gestureId];
+        let winningResult = resultsTable[this.player2.gesture.id] [this.player2.gesture.id];
 
         if (winningResult === 'w'){
-                player1.wins++
-                winningPlayer = player1;
+                this.player1.wins++
+                winningPlayer = this.player1;
             }
         else if (winningResult === 'l'){
-                player2.wins++
-                winningPlayer = player2;
+                this.player2.wins++
+                winningPlayer = this.player2;
             } 
 
-        resultsArray[0] = player1;
-        resultsArray[1] = player2;
-
+        
         if(winningPlayer === null || winningPlayer === undefined){
-            alert(player1.name + " threw: " + player1.gesture+ "\n" + player2.name + " threw: " + player2.gesture + "\nNobody wins... :(");
+            alert(this.player1.name + " threw: " + this.player1.gesture.name+ "\n" + this.player2.name + " threw: " + this.player2.gesture + "\nNobody wins... :(");
         }
         else{
-            alert(player1.name + " threw: " + player1.gesture + "\n" + player2.name + " threw: " + player2.gesture + "\n" + winningPlayer.name + " IS THE WINNER OF THE ROUND!");
+            alert(this.player1.name + " threw: " + this.player1.gesture.name + "\n" + this.player2.name + " threw: " + this.player2.gesture + "\n" + winningPlayer.name + " IS THE WINNER OF THE ROUND!");
         }
-        return resultsArray; 
+        
     }
 
     displayWinner(winner){
@@ -185,28 +140,43 @@ class Game {
 
 class Player {
 
-    constructor(){
+    constructor(gestureArray){
         this.name = "";
         this.wins = 0;
-        
+        this.gestureArray = gestureArray;
+        this.gesture = null; 
     }
 }
 
 class Human extends Player{
 
-    constructor(name){
-        super();
+    constructor(name, gestureArray){
+        super(gestureArray);
         this.name = name
-        this.gesture = null;
-        this.gestureId = null;
+    }
+
+    promptPlayerGestures(){
+        let userInput;
+      
+    
+        do{
+            userInput = prompt(this.name + " What do you choose [enter approipriate number]: \n1) Rock \n2) Paper \n3) Scissors \n4) Lizard \n5) Spock");
+            userInput = parseInt(userInput);
+            if (userInput > 0 && userInput <= this.gestureArray.length){
+                break
+            }
+            alert("Not a valid input...")
+        }while(true)
+        
+        this.gesture = this.gestureArray[userInput-1];
     }
 
 }
 
 class Computer extends Player{
 
-    constructor(){
-        super();
+    constructor(gestureArray){
+        super(gestureArray);
         this.name = this.randomNameGenerator();
     }
 
@@ -214,6 +184,15 @@ class Computer extends Player{
         let nameArray = ['Tony', 'Ralph', 'HAL 3000', 'Pikachu', 'Luffy', 'Wee Hughie', 'Osmosis Jones', 'Deep Thought']
 
         return nameArray[Math.floor(Math.random() * nameArray.length)]
+    }
+
+    promptPlayerGestures(){
+        let userInput;
+      
+        
+        userInput = Math.floor(Math.random() * this.gestureArray.length);
+    
+        this.gesture = this.gestureArray[userInput];
     }
 
 }
@@ -253,7 +232,7 @@ class Scissors extends Gesture{
     }
 }
 
-class Lizzard extends Gesture{
+class Lizard extends Gesture{
     
     constructor(){
         super();
