@@ -142,7 +142,6 @@ class Game {
     }
 }
 
-
 class Player {
 
     constructor(gestureArray){
@@ -254,8 +253,5 @@ class Spock extends Gesture{
         this.id = 4;
     }
 }
-
-
-
 
 let game = new Game();
