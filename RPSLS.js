@@ -17,13 +17,16 @@ class Game {
 
         do{
 
-            this.player1.gesture = this.promptPlayerGestures(this.player1, this.gestureArray);
+            this.player1 = this.promptPlayerGestures(this.player1, this.gestureArray);
 
+            console.log(this.player1)
             if (this.player2 instanceof Computer === true){
-                this.player2.gesture = this.generateComputerGesture(this.gestureArray);
+                this.player2 = this.generateComputerGesture(this.player2, this.gestureArray);
+                console.log(this.player2)
             }
             else{
-                this.player2.gesture = this.promptPlayerGestures(this.player2, this.gestureArray);
+                this.player2 = this.promptPlayerGestures(this.player2, this.gestureArray);
+               
             }
 
             playerArray = this.getResults(this.player1, this.player2)
@@ -77,7 +80,7 @@ class Game {
         return playersArray;
     }
 
-    promptPlayerGestures(player, gestureArray){
+    /* promptPlayerGestures(player, gestureArray){
     //take in a number value, make return value = gestureArray[return value]
     let userInput; 
     do{
@@ -92,22 +95,89 @@ class Game {
     userInput = gestureArray[userInput-1];
 
     return userInput;
+    } */
+
+    promptPlayerGestures(player, gestureArray){
+        let userInput;
+        do{
+            userInput = prompt(player.name + " What do you choose [enter approipriate number]: \n1) Rock \n2) Paper \n3) Scissors \n4) Lizard \n5) Spock");
+            userInput = parseInt(userInput);
+            if (userInput > 0 && userInput <= gestureArray.length){
+                break
+            }
+            alert("Not a valid input...")
+        }while(true)
+
+        let gesture;
+        if (userInput === 1){
+            gesture = new Rock
+            player.gesture = gesture.name;
+            player.gestureId = gesture.id;
+        }
+        else if (userInput === 2){
+            gesture = new Paper
+            player.gesture = gesture.name;
+            player.gestureId = gesture.id;
+        }
+        else if (userInput === 3){
+            gesture = new Scissors
+            player.gesture = gesture.name;
+            player.gestureId = gesture.id;
+        }
+        else if (userInput === 4){
+            gesture = new Lizzard
+            player.gesture = gesture.name;
+            player.gestureId = gesture.id;
+        }
+        else if (userInput === 5){
+            gesture = new Spock
+            player.gesture = gesture.name;
+            player.gestureId = gesture.id;
+        }
+        return player;
     }
 
-    generateComputerGesture(gestureArray){
+    generateComputerGesture(player, gestureArray){
         //randomly generate a number 1-5 and use same logic as promptPlayerGestures to assign gesture based on numerical value
         let randomNumber = Math.floor(Math.random() * gestureArray.length);
-        let computerGesture = gestureArray[randomNumber];
+        let computerGesture = randomNumber + 1;
+        let gesture;
+        if (computerGesture === 1){
+            gesture = new Rock
+            player.gesture = gesture.name;
+            player.gestureId = gesture.id;
+        }
+        else if (computerGesture === 2){
+            gesture = new Paper
+            player.gesture = gesture.name;
+            player.gestureId = gesture.id;
+        }
+        else if (computerGesture === 3){
+            gesture = new Scissors
+            player.gesture = gesture.name;
+            player.gestureId = gesture.id;
+        }
+        else if (computerGesture === 4){
+            gesture = new Lizzard
+            player.gesture = gesture.name;
+            player.gestureId = gesture.id;
+        }
+        else if (computerGesture === 5){
+            gesture = new Spock
+            player.gesture = gesture.name;
+            player.gestureId = gesture.id;
+        }
 
-        return computerGesture;
+
+        return player;
     }
 
     getResults(player1, player2){
         //compare the two gestures to see who wins
         let resultsArray = ["", ""];
         let winningPlayer;
-        resultsArray[0] = this.numberOf(player1.gesture);
-        resultsArray[1] = this.numberOf(player2.gesture);
+       /*  resultsArray[0] = this.numberOf(player1.gesture);
+        resultsArray[1] = this.numberOf(player2.gesture); */
 
         let resultsTable = []; 
         resultsTable = [
@@ -119,7 +189,9 @@ class Game {
         [ 'l', 'w', 'l', 'w', 'd'], //draw
         ];  //win or lose is based on horizontal person's perspective
 
-        let winningResult = resultsTable[resultsArray[1]] [resultsArray[0]];
+        //let winningResult = resultsTable[resultsArray[1]] [resultsArray[0]];//resultsArray[1] is player2, resultsArray[0] is player1
+
+        let winningResult = resultsTable[player2.gestureId] [player1.gestureId];
 
         if (winningResult === 'w'){
                 player1.wins++
@@ -134,7 +206,7 @@ class Game {
         resultsArray[1] = player2;
 
         if(winningPlayer === null || winningPlayer === undefined){
-            alert(player1.name + " threw: " + player1.gesture + "\n" + player2.name + " threw: " + player2.gesture + "\nNobody wins... :(");
+            alert(player1.name + " threw: " + player1.gesture+ "\n" + player2.name + " threw: " + player2.gesture + "\nNobody wins... :(");
         }
         else{
             alert(player1.name + " threw: " + player1.gesture + "\n" + player2.name + " threw: " + player2.gesture + "\n" + winningPlayer.name + " IS THE WINNER OF THE ROUND!");
@@ -201,6 +273,7 @@ class Human extends Player{
         super();
         this.name = name
         this.gesture = null;
+        this.gestureId = null;
     }
 
 }
