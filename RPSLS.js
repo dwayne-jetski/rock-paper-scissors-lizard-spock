@@ -19,15 +19,7 @@ class Game {
 
             this.player1 = this.promptPlayerGestures(this.player1, this.gestureArray);
 
-            console.log(this.player1)
-            if (this.player2 instanceof Computer === true){
-                this.player2 = this.generateComputerGesture(this.player2, this.gestureArray);
-                console.log(this.player2)
-            }
-            else{
-                this.player2 = this.promptPlayerGestures(this.player2, this.gestureArray);
-               
-            }
+            this.player2 = this.promptPlayerGestures(this.player2, this.gestureArray);
 
             playerArray = this.getResults(this.player1, this.player2)
             this.player1 = playerArray[0];
@@ -80,34 +72,22 @@ class Game {
         return playersArray;
     }
 
-    /* promptPlayerGestures(player, gestureArray){
-    //take in a number value, make return value = gestureArray[return value]
-    let userInput; 
-    do{
-        userInput = prompt(player.name + " What do you choose [enter approipriate number]: \n1) Rock \n2) Paper \n3) Scissors \n4) Lizard \n5) Spock");
-        userInput = parseInt(userInput);
-        if (userInput > 0 && userInput <= gestureArray.length){
-            break
-        }
-        alert("Not a valid input...")
-    }while(true)
-        
-    userInput = gestureArray[userInput-1];
-
-    return userInput;
-    } */
-
     promptPlayerGestures(player, gestureArray){
         let userInput;
-        do{
-            userInput = prompt(player.name + " What do you choose [enter approipriate number]: \n1) Rock \n2) Paper \n3) Scissors \n4) Lizard \n5) Spock");
-            userInput = parseInt(userInput);
-            if (userInput > 0 && userInput <= gestureArray.length){
-                break
-            }
-            alert("Not a valid input...")
-        }while(true)
-
+      
+        if (player instanceof Computer === true){
+            userInput = Math.floor(Math.random() * gestureArray.length) +1;
+        }
+        else{
+            do{
+                userInput = prompt(player.name + " What do you choose [enter approipriate number]: \n1) Rock \n2) Paper \n3) Scissors \n4) Lizard \n5) Spock");
+                userInput = parseInt(userInput);
+                if (userInput > 0 && userInput <= gestureArray.length){
+                    break
+                }
+                alert("Not a valid input...")
+            }while(true)
+        }
         let gesture;
         if (userInput === 1){
             gesture = new Rock
@@ -134,41 +114,6 @@ class Game {
             player.gesture = gesture.name;
             player.gestureId = gesture.id;
         }
-        return player;
-    }
-
-    generateComputerGesture(player, gestureArray){
-        //randomly generate a number 1-5 and use same logic as promptPlayerGestures to assign gesture based on numerical value
-        let randomNumber = Math.floor(Math.random() * gestureArray.length);
-        let computerGesture = randomNumber + 1;
-        let gesture;
-        if (computerGesture === 1){
-            gesture = new Rock
-            player.gesture = gesture.name;
-            player.gestureId = gesture.id;
-        }
-        else if (computerGesture === 2){
-            gesture = new Paper
-            player.gesture = gesture.name;
-            player.gestureId = gesture.id;
-        }
-        else if (computerGesture === 3){
-            gesture = new Scissors
-            player.gesture = gesture.name;
-            player.gestureId = gesture.id;
-        }
-        else if (computerGesture === 4){
-            gesture = new Lizzard
-            player.gesture = gesture.name;
-            player.gestureId = gesture.id;
-        }
-        else if (computerGesture === 5){
-            gesture = new Spock
-            player.gesture = gesture.name;
-            player.gestureId = gesture.id;
-        }
-
-
         return player;
     }
 
@@ -212,26 +157,6 @@ class Game {
             alert(player1.name + " threw: " + player1.gesture + "\n" + player2.name + " threw: " + player2.gesture + "\n" + winningPlayer.name + " IS THE WINNER OF THE ROUND!");
         }
         return resultsArray; 
-    }
-
-    numberOf(playerGesture){
-        let result;
-        if (playerGesture === "rock"){
-            result = 0;
-        }
-        else if (playerGesture === "paper"){
-            result = 1;
-        }
-        else if (playerGesture === "scissors"){
-            result = 2;
-        }
-        else if (playerGesture === "lizard"){
-            result = 3;
-        }
-        else if (playerGesture === "spock"){
-            result = 4;
-        }
-        return result;
     }
 
     displayWinner(winner){
